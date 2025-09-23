@@ -49,7 +49,7 @@ app.post('/modules', async (request, reply) => {
   const { name, course_id } = request.body as CourseModule
   await knex("course_modules").insert({ name, course_id })
   return reply.status(201).send({
-    message: "Módulo adicionado com sucesso"
+    message: "Módulo criado com sucesso"
   })
 })
 
