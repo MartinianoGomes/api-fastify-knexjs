@@ -8,6 +8,12 @@ interface Course {
   name: string
 }
 
+interface CourseModule {
+  id: number,
+  name: string,
+  course_id: number
+}
+
 app.get('/courses', async (request, reply) => {
   const courses = await knex("courses").select().orderBy("name")
   return reply.status(201).send(courses)
@@ -35,6 +41,15 @@ app.put('/courses/:id', async (request, reply) => {
   await knex("courses").update({ name }).where({ id })
   return reply.status(201).send({
     message: "Curso atualizado com sucesso"
+  })
+})
+
+
+app.post('/modules', async (request, reply) => {
+  const { name, course_id } = request.body as CourseModule
+  await knex("course_modules").insert({ name, course_id })
+  return reply.status(201).send({
+    message: "Módulo adicionado com sucesso"
   })
 })
 
