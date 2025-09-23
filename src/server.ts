@@ -21,6 +21,14 @@ app.post('/courses', async (request, reply) => {
   })
 })
 
+app.delete('/courses/:id', async (request, reply) => {
+  const { id } = request.params as Course
+  await knex("courses").delete().where({ id })
+  return reply.status(201).send({
+    message: "Curso deletado com sucesso!";
+  })
+})
+
 app.put('/courses/:id', async (request, reply) => {
   const { id } = request.params as Course
   const { name } = request.body as Course
